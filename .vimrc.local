@@ -1,0 +1,60 @@
+    if has('gui_running')
+        set guioptions-=T           " remove the toolbar
+        set lines=40                " 40 lines of text instead of 24,
+        if has("gui_gtk2")
+            set guifont=Andale\ Mono\ Regular\ 10,Menlo\ Regular\ 10,Consolas\ Regular\ 10,Courier\ New\ Regular\ 10
+        else
+            set guifont=Andale\ Mono\ Regular:h16,Menlo\ Regular:h15,Consolas\ Regular:h16,Courier\ New\ Regular:h18
+        endif
+        if has('gui_macvim')
+            set transparency=5          " Make the window slightly transparent
+        endif
+    else
+        if &term == 'xterm' || &term == 'screen'
+            set t_Co=256                 " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
+        endif
+        "set term=builtin_ansi       " Make arrow and other keys work
+    endif
+
+    " Keymaps
+    " Remap esc
+    inoremap jj <Esc>
+
+    " Remap fold toggle
+    noremap <space> za
+
+    " Remap search button
+    noremap - /
+
+    " Easy save
+    noremap <leader>w :w<CR>
+
+    " Easy save
+    noremap <leader>W :w!<CR>
+
+    " Clipboard stuff
+    noremap <leader>y "*y
+    noremap <leader>p :set paste<CR>"*p<CR>:set nopaste<CR>
+    noremap <leader>P :set paste<CR>"*P<CR>:set nopaste<CR>
+
+    " Make backspace work sanely in visual mode
+    vnoremap <bs> x
+
+    " Keep search matches in the middle of the window.
+    nnoremap n nzzzv
+    nnoremap N Nzzzv
+
+    " Same when jumping around
+    nnoremap g; g;zz
+    nnoremap g, g,zz
+
+    " Toggle "keep current line in the center of the screen" mode
+    nnoremap <leader>C :let &scrolloff=999-&scrolloff<cr>
+
+    " Tabularize
+    nmap <Leader>a1= :Tabularize /^[^=]*\zs<CR>
+    vmap <Leader>a1= :Tabularize /^[^=]*\zs<CR>
+
+    colorscheme grb256          " Set colorscheme
+    set nospell                 " Disable spell check
+    set foldmethod=syntax       " Set foldmethod to syntax
