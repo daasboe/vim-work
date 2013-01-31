@@ -55,7 +55,7 @@
     nmap <Leader>a1= :Tabularize /^[^=]*\zs<CR>
     vmap <Leader>a1= :Tabularize /^[^=]*\zs<CR>
 
-    colorscheme railscasts      " Set colorscheme
-    set nospell                 " Disable spell check
-    set foldmethod=syntax       " Set foldmethod to syntax
+    colorscheme railscasts-improved      " Set colorscheme
+    set nospell                          " Disable spell check
+    set foldmethod=syntax                " Set foldmethod to syntax
     set shiftwidth=2

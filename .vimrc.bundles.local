@@ -1,3 +1,2 @@
 Bundle 'lukaszb/vim-web-indent'
-Bundle 'oguzbilgic/sexy-railscasts-theme'
-Bundle 'jpo/vim-railscasts-theme'
+Bundle 'daasboe/vim-extra-colors'
