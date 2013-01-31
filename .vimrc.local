@@ -2,7 +2,7 @@
         set guioptions-=T           " remove the toolbar
         set lines=40                " 40 lines of text instead of 24,
         if has("gui_gtk2")
-            set guifont=Andale\ Mono\ Regular\ 10,Menlo\ Regular\ 10,Consolas\ Regular\ 10,Courier\ New\ Regular\ 10
+            set guifont=Andale\ Mono\ Regular\ 9,Menlo\ Regular\ 9,Consolas\ Regular\ 9,Courier\ New\ Regular\ 9
         else
             set guifont=Andale\ Mono\ Regular:h10,Menlo\ Regular:h10,Consolas\ Regular:h10,Courier\ New\ Regular:h10
         endif
@@ -55,7 +55,7 @@
     nmap <Leader>a1= :Tabularize /^[^=]*\zs<CR>
     vmap <Leader>a1= :Tabularize /^[^=]*\zs<CR>
 
-    colorscheme sexy-railscasts " Set colorscheme
+    colorscheme railscasts      " Set colorscheme
     set nospell                 " Disable spell check
     set foldmethod=syntax       " Set foldmethod to syntax
     set shiftwidth=2
