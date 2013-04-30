@@ -25,22 +25,22 @@
         Bundle 'gmarik/vundle'
         Bundle 'MarcWeber/vim-addon-mw-utils'
         Bundle 'tomtom/tlib_vim'
-    "" vim 7.3 stuff
-    "Bundle 'myusuf3/numbers.vim'
-    "Bundle 'Lokaltog/vim-powerline'
-    "Bundle 'scrooloose/nerdcommenter'
+    " vim 7.3 stuff
+    Bundle 'myusuf3/numbers.vim'
+    Bundle 'Lokaltog/vim-powerline'
+    Bundle 'scrooloose/nerdcommenter'
     " Snippets & AutoComplete
-        "Bundle 'garbas/vim-snipmate'
+        Bundle 'garbas/vim-snipmate'
         "" Source support_function.vim to support snipmate-snippets.
-        "if filereadable(expand("~/.vim/bundle/snipmate-snippets/snippets/support_functions.vim"))
-        "    source ~/.vim/bundle/snipmate-snippets/snippets/support_functions.vim
-        "endif
-        "Bundle 'Shougo/neocomplcache'
-        "Bundle 'Shougo/neosnippet'
-        "Bundle 'honza/snipmate-snippets'
-    "if executable('ctags')
-    "    Bundle 'majutsushi/tagbar'
-    "endif
+        if filereadable(expand("~/.vim/bundle/snipmate-snippets/snippets/support_functions.vim"))
+            source ~/.vim/bundle/snipmate-snippets/snippets/support_functions.vim
+        endif
+        Bundle 'Shougo/neocomplcache'
+        Bundle 'Shougo/neosnippet'
+        Bundle 'honza/snipmate-snippets'
+    if executable('ctags')
+        Bundle 'majutsushi/tagbar'
+    endif
     Bundle 'scrooloose/nerdtree'
     Bundle 'spf13/vim-colors'
     Bundle 'tpope/vim-surround'
@@ -139,7 +139,7 @@
 
     set backspace=indent,eol,start  " Backspace for dummies
     set linespace=0                 " No extra spaces between rows
-    set nu                          " Line numbers on
+    set relativenumbers             " Line numbers on
     set showmatch                   " Show matching brackets/parenthesis
     set incsearch                   " Find as you type search
     set hlsearch                    " Highlight search terms
@@ -238,6 +238,8 @@
         vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
         nmap <Leader>a1= :Tabularize /^[^=]*\zs<CR>
         vmap <Leader>a1= :Tabularize /^[^=]*\zs<CR>
+        nmap <Leader>as:Tabularize /\s<CR>
+        vmap <Leader>as :Tabularize /\s<CR>
     " }
 
     " Session List {
@@ -256,11 +258,12 @@
 " GUI Settings {
     if has('gui_running')
         set guioptions-=T           " remove the toolbar
+        set guioptions-=m           " remove the menubar
         set lines=40                " 40 lines of text instead of 24,
         if has("gui_gtk2")
             set guifont=Monospace\ 9
         else
-            set guifont=Consolas\ Regular\ 9
+            set guifont=*-adobe-courier-medium-r-normal-*-*-120-*-*-m-*-*
         endif
     else
         if &term == 'xterm' || &term == 'screen'
@@ -271,14 +274,20 @@
 "}
 " Filetypes {
     autocmd BufNewFile,BufRead *.ocn set filetype=ocean
-    autocmd BufNewFile,BufRead *.sp,*.cir,*.ana call SpiceSettings()
+    autocmd BufNewFile,BufRead *.sp,*.cir,*.ana set filetype=spice
+    autocmd BufNewFile,BufRead *.vec set filetype=vector
 
     function SpiceSettings()
-        set filetype=spice
         set foldmethod=marker
         set foldmarker={,}
         set commentstring=*%s
     endfunction
+
+    autocmd FileType make setlocal ts=4 sts=4 sw=4 noet
+    autocmd FileType spice setlocal ts=2 sts=2 sw=2 noet
+    autocmd FileType spice call SpiceSettings()
+    autocmd FileType snippet,snippets setlocal ts=2 sts=2 sw=2 noet
+
 " }
 " Key (re)Mappings {
     let mapleader = ','
@@ -423,9 +432,10 @@
         nnoremap td  :tabclose<CR>
         nnoremap <silent> <C-b> :CtrlPMRU<CR>
         "
-        " Shortcut to rapidly toggle `set list`
-        nmap <leader>l :set list!<CR>
     " }
+
+    " Shortcut to rapidly toggle `set list`
+    nmap <leader>l :set list!<CR>
 " }
 " Functions {
 
