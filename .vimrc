@@ -30,14 +30,13 @@
     Bundle 'Lokaltog/vim-powerline'
     Bundle 'scrooloose/nerdcommenter'
     " Snippets & AutoComplete
+        Bundle 'honza/vim-snippets'
         Bundle 'garbas/vim-snipmate'
+        Bundle 'ervandew/supertab'
         "" Source support_function.vim to support snipmate-snippets.
-        if filereadable(expand("~/.vim/bundle/snipmate-snippets/snippets/support_functions.vim"))
-            source ~/.vim/bundle/snipmate-snippets/snippets/support_functions.vim
-        endif
-        Bundle 'Shougo/neocomplcache'
-        Bundle 'Shougo/neosnippet'
-        Bundle 'honza/snipmate-snippets'
+        "if filereadable(expand("~/.vim/bundle/snipmate-snippets/snippets/support_functions.vim"))
+            "source ~/.vim/bundle/snipmate-snippets/snippets/support_functions.vim
+        "endif
     if executable('ctags')
         Bundle 'majutsushi/tagbar'
     endif
@@ -57,13 +56,11 @@
     Bundle 'daasboe/vim-extra-colors'
     Bundle 'chrisbra/NrrwRgn'
     Bundle 'Raimondi/delimitMate'
-    Bundle 'msanders/snipmate.vim'
-    Bundle 'honza/snipmate-snippets'
+    Bundle 'kana/vim-fakeclip'
     " Electronics {
       Bundle 'vim-scripts/spectre.vim'
       Bundle 'vim-scripts/ocean.vim'
     " }
-
 " }
 " General {
 
@@ -263,7 +260,7 @@
         if has("gui_gtk2")
             set guifont=Monospace\ 9
         else
-            set guifont=*-adobe-courier-medium-r-normal-*-*-120-*-*-m-*-*
+            set guifont=-misc-fixed-medium-r-semicondensed-*-*-120-*-*-*-*-iso10646-*
         endif
     else
         if &term == 'xterm' || &term == 'screen'
