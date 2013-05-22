@@ -19,19 +19,17 @@
     " }
 " }
 " Bundles {
-    " Deps
-        " Make sure to use http instead of https or git behind proxy
-        let g:vundle_default_git_proto = 'http'
-        Bundle 'gmarik/vundle'
-        Bundle 'MarcWeber/vim-addon-mw-utils'
-        Bundle 'tomtom/tlib_vim'
-    " vim 7.3 stuff
+    " Make sure to use http instead of https or git behind proxy
+    let g:vundle_default_git_proto = 'http'
+    Bundle 'gmarik/vundle'
+    Bundle 'MarcWeber/vim-addon-mw-utils'
+    Bundle 'tomtom/tlib_vim'
     Bundle 'myusuf3/numbers.vim'
     Bundle 'Lokaltog/vim-powerline'
     Bundle 'scrooloose/nerdcommenter'
     " Snippets & AutoComplete
-        Bundle 'honza/vim-snippets'
         Bundle 'garbas/vim-snipmate'
+        Bundle 'honza/vim-snippets'
         Bundle 'ervandew/supertab'
         "" Source support_function.vim to support snipmate-snippets.
         "if filereadable(expand("~/.vim/bundle/snipmate-snippets/snippets/support_functions.vim"))
