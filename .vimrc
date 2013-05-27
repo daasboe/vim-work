@@ -6,7 +6,7 @@
         set nocompatible        " must be first line
         set encoding=utf-8
         set background=dark     " Assume a dark background
-        let $LANG = "en"
+        let $LANG = "en_US.UTF-8"
     " }
     " Setup Bundle Support {
     " The next two lines ensure that the ~/.vim/bundle/ system works
@@ -55,6 +55,15 @@
     Bundle 'chrisbra/NrrwRgn'
     Bundle 'Raimondi/delimitMate'
     Bundle 'kana/vim-fakeclip'
+    " node.js stuff
+        Bundle 'digitaltoad/vim-jade'
+        Bundle 'myhere/vim-nodejs-complete'
+
+        " Javascript checker
+        Bundle 'walm/jshint.vim'
+
+        " Syntax check
+        Bundle 'scrooloose/syntastic'
     " Electronics {
       Bundle 'vim-scripts/spectre.vim'
       Bundle 'vim-scripts/ocean.vim'
@@ -170,29 +179,29 @@
 " }
 " Plugins {
     " OmniComplete {
-        if has("autocmd") && exists("+omnifunc")
-            autocmd Filetype *
-                \if &omnifunc == "" |
-                \setlocal omnifunc=syntaxcomplete#Complete |
-                \endif
-        endif
+        "if has("autocmd") && exists("+omnifunc")
+            "autocmd Filetype *
+                "\if &omnifunc == "" |
+                "\setlocal omnifunc=syntaxcomplete#Complete |
+                "\endif
+        "endif
 
-        hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
-        hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
-        hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
+        "hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
+        "hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
+        "hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
 
-        " Some convenient mappings
-        inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-        inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
-        inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-        inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-        inoremap <expr> <C-d>      pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-        inoremap <expr> <C-u>      pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+        "" Some convenient mappings
+        "inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+        "inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+        "inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+        "inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+        "inoremap <expr> <C-d>      pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+        "inoremap <expr> <C-u>      pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
 
-        " Automatically open and close the popup menu / preview window
-        au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-        set completeopt=menu,preview,longest
-    " }
+        "" Automatically open and close the popup menu / preview window
+        "au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+        "set completeopt=menu,preview,longest
+    "" }
 
     " Misc {
         let g:NERDShutUp=1
@@ -247,6 +256,11 @@
         nnoremap <Leader>u :UndotreeToggle<CR>
         " If undotree is opened, it is likely one wants to interact with it.
         let g:undotree_SetFocusWhenToggle=1
+    " }
+    
+    " Supertab {
+      "let g:SuperTabDefaultCompletionType = "<c-n>"
+      "let g:SuperTabContextDefaultCompletionType = "<c-n>"
     " }
 
 " }
