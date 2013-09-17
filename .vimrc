@@ -277,7 +277,7 @@ call vundle#rc()
     map zh zH
 
     " Remap esc
-    inoremap jj <Esc>
+    inoremap jk <Esc>
 
     " Remap fold toggle
     noremap <space> za
@@ -423,6 +423,11 @@ call vundle#rc()
         nnoremap <Leader>u :UndotreeToggle<CR>
         " If undotree is opened, it is likely one wants to interact with it.
         let g:undotree_SetFocusWhenToggle=1
+    " }
+
+    " Supertab {
+      let g:SuperTabDefaultCompletionType = "context"
+      let g:SuperTabContextDefaultCompletionType = "<c-n>"
     " }
 
 " }
