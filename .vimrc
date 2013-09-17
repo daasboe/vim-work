@@ -6,7 +6,7 @@
         set nocompatible        " must be first line
         set encoding=utf-8
         set background=dark     " Assume a dark background
-        let $LANG = "en"
+        let $LANG = "en_US.UTF-8"
     " }
     " Setup Bundle Support {
     " The next two lines ensure that the ~/.vim/bundle/ system works
@@ -52,9 +52,24 @@
     Bundle 'tpope/vim-fugitive'
     Bundle 'godlygeek/tabular'
     Bundle 'daasboe/vim-extra-colors'
+    Bundle 'chmllr/vim-colorscheme-elrodeo'
     Bundle 'chrisbra/NrrwRgn'
     Bundle 'Raimondi/delimitMate'
     Bundle 'kana/vim-fakeclip'
+    Bundle 'kien/rainbow_parentheses.vim'
+    " Clojure stuff
+    Bundle 'guns/vim-clojure-static'
+    Bundle 'tpope/vim-fireplace'
+    Bundle 'tpope/vim-classpath'
+    " node.js stuff
+    Bundle 'digitaltoad/vim-jade'
+    Bundle 'myhere/vim-nodejs-complete'
+
+    " Javascript checker
+    Bundle 'walm/jshint.vim'
+
+    " Syntax check
+    Bundle 'scrooloose/syntastic'
     " Electronics {
       Bundle 'vim-scripts/spectre.vim'
       Bundle 'vim-scripts/ocean.vim'
@@ -167,6 +182,186 @@
     autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml,ocn autocmd BufWritePre <buffer> call StripTrailingWhitespace()
     autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
 
+" }
+" Plugins {
+    " OmniComplete {
+        "if has("autocmd") && exists("+omnifunc")
+            "autocmd Filetype *
+                "\if &omnifunc == "" |
+                "\setlocal omnifunc=syntaxcomplete#Complete |
+                "\endif
+        "endif
+
+        "hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
+        "hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
+        "hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
+
+        "" Some convenient mappings
+        "inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+        "inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+        "inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+        "inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+        "inoremap <expr> <C-d>      pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+        "inoremap <expr> <C-u>      pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+
+        "" Automatically open and close the popup menu / preview window
+        "au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+        "set completeopt=menu,preview,longest
+    "" }
+
+    " Misc {
+        let g:NERDShutUp=1
+        let b:match_ignorecase = 1
+    " }
+
+    " Ctags {
+        set tags=./tags;/,~/.vimtags
+    " }
+
+    " NerdTree {
+        map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+        map <leader>e :NERDTreeFind<CR>
+        nmap <leader>nt :NERDTreeFind<CR>
+
+        let NERDTreeShowBookmarks=1
+        let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
+        let NERDTreeChDirMode=0
+        let NERDTreeQuitOnOpen=1
+        let NERDTreeMouseMode=2
+        let NERDTreeShowHidden=1
+        let NERDTreeKeepTreeInNewTab=1
+        let g:nerdtree_tabs_open_on_gui_startup=0
+    " }
+
+    " Tabularize {
+        nmap <Leader>a& :Tabularize /&<CR>
+        vmap <Leader>a& :Tabularize /&<CR>
+        nmap <Leader>a= :Tabularize /=<CR>
+        vmap <Leader>a= :Tabularize /=<CR>
+        nmap <Leader>a: :Tabularize /:<CR>
+        vmap <Leader>a: :Tabularize /:<CR>
+        nmap <Leader>a:: :Tabularize /:\zs<CR>
+        vmap <Leader>a:: :Tabularize /:\zs<CR>
+        nmap <Leader>a, :Tabularize /,<CR>
+        vmap <Leader>a, :Tabularize /,<CR>
+        nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
+        vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
+        nmap <Leader>a1= :Tabularize /^[^=]*\zs<CR>
+        vmap <Leader>a1= :Tabularize /^[^=]*\zs<CR>
+        nmap <Leader>as:Tabularize /\s<CR>
+        vmap <Leader>as :Tabularize /\s<CR>
+    " }
+
+    " Session List {
+        set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
+        nmap <leader>sl :SessionList<CR>
+        nmap <leader>ss :SessionSave<CR>
+    " }
+
+    " UndoTree {
+        nnoremap <Leader>u :UndotreeToggle<CR>
+        " If undotree is opened, it is likely one wants to interact with it.
+        let g:undotree_SetFocusWhenToggle=1
+    " }
+    
+    " Supertab {
+      "let g:SuperTabDefaultCompletionType = "<c-n>"
+      "let g:SuperTabContextDefaultCompletionType = "<c-n>"
+    " }
+    " Clojure options. {
+
+        autocmd Syntax clojure RainbowParenthesesLoadRound
+        autocmd BufEnter *.clj RainbowParenthesesToggle
+        autocmd BufLeave *.clj RainbowParenthesesToggle
+
+        let g:rbpt_colorpairs = [
+            \ ['magenta',     'purple1'],
+            \ ['cyan',        'magenta1'],
+            \ ['green',       'slateblue1'],
+            \ ['yellow',      'cyan1'],
+            \ ['red',         'springgreen1'],
+            \ ['magenta',     'green1'],
+            \ ['cyan',        'greenyellow'],
+            \ ['green',       'yellow1'],
+            \ ['yellow',      'orange1'],
+            \ ]
+        let g:rbpt_max = 9
+    " }
+" }
+" GUI Settings {
+    if has('gui_running')
+        set guioptions-=T           " remove the toolbar
+        set guioptions-=m           " remove the menubar
+        set lines=40                " 40 lines of text instead of 24,
+        if has("gui_gtk2")
+            set guifont=Monospace\ 9
+        else
+            set guifont=-misc-fixed-medium-r-semicondensed-*-*-120-*-*-*-*-iso10646-*
+        endif
+    else
+        if &term == 'xterm' || &term == 'screen'
+            set t_Co=256                 " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
+        endif
+        "set term=builtin_ansi       " Make arrow and other keys work
+    endif
+"}
+" Filetypes {
+    autocmd BufNewFile,BufRead *.ocn set filetype=ocean
+    autocmd BufNewFile,BufRead *.sp,*.cir,*.ana set filetype=spice
+    autocmd BufNewFile,BufRead *.vec set filetype=vector
+    autocmd BufNewFile,BufRead *.clj, *.cljs set filetype=clojure
+
+    function SpiceSettings()
+        set foldmethod=marker
+        set foldmarker={,}
+        set commentstring=*%s
+    endfunction
+
+    autocmd FileType make setlocal ts=4 sts=4 sw=4 noet
+    autocmd FileType spice setlocal ts=2 sts=2 sw=2 noet
+    autocmd FileType spice call SpiceSettings()
+    autocmd FileType snippet,snippets setlocal ts=2 sts=2 sw=2 noet
+    " Clojure {
+        "  Automagic Clojure folding on defn's and defmacro's
+        "
+        function GetClojureFold()
+            if getline(v:lnum) =~ '^\s*(defn.*\s'
+                return ">1"
+            elseif getline(v:lnum) =~ '^\s*(defmacro.*\s'
+                return ">1"
+            elseif getline(v:lnum) =~ '^\s*(defmethod.*\s'
+                return ">1"
+            elseif getline(v:lnum) =~ '^\s*$'
+                let my_cljnum = v:lnum
+                let my_cljmax = line("$")
+
+                while (1)
+                    let my_cljnum = my_cljnum + 1
+                    if my_cljnum > my_cljmax
+                        return "<1"
+                    endif
+
+                    let my_cljdata = getline(my_cljnum)
+
+                    " If we match an empty line, stop folding
+                    if my_cljdata =~ '^$'
+                        return "<1"
+                    else
+                        return "="
+                    endif
+                endwhile
+            else
+                return "="
+            endif
+        endfunction
+
+        function TurnOnClojureFolding()
+            setlocal foldexpr=GetClojureFold()
+            setlocal foldmethod=expr
+        endfunction
+
+        autocmd FileType clojure call TurnOnClojureFolding()
+        " }
 " }
 " Key (re)Mappings {
     let mapleader = ','
