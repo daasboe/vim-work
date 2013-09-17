@@ -2,21 +2,21 @@
 " vim: set sw=4 sts=4 foldmarker={,} foldlevel=0 foldmethod=marker:
 " }
 " Environment {
-    " Basics {
-        set nocompatible        " must be first line
-        set encoding=utf-8
-        set background=dark     " Assume a dark background
-        let $LANG = "en_US.UTF-8"
-    " }
-    " Setup Bundle Support {
-    " The next two lines ensure that the ~/.vim/bundle/ system works
-        set nocompatible               " be iMproved
-        filetype off                   " required!
+" Basics {
+set nocompatible        " must be first line
+set encoding=utf-8
+set background=dark     " Assume a dark background
+let $LANG = "en_US.UTF-8"
+" }
+" Setup Bundle Support {
+" The next two lines ensure that the ~/.vim/bundle/ system works
+set nocompatible               " be iMproved
+filetype off                   " required!
 
-        set rtp+=~/.vim/bundle/vundle/
-        call vundle#rc()
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
 
-    " }
+" }
 " }
 " Bundles {
     " Make sure to use http instead of https or git behind proxy
@@ -67,6 +67,9 @@
 
     " Javascript checker
     Bundle 'walm/jshint.vim'
+
+    " Python stuff
+    Bundle 'tmhedberg/SimpylFold'
 
     " Syntax check
     Bundle 'scrooloose/syntastic'
@@ -263,10 +266,10 @@
         " If undotree is opened, it is likely one wants to interact with it.
         let g:undotree_SetFocusWhenToggle=1
     " }
-    
+
     " Supertab {
-      "let g:SuperTabDefaultCompletionType = "<c-n>"
-      "let g:SuperTabContextDefaultCompletionType = "<c-n>"
+      let g:SuperTabDefaultCompletionType = "context"
+      let g:SuperTabContextDefaultCompletionType = "<c-n>"
     " }
     " Clojure options. {
 
@@ -295,6 +298,8 @@
         set lines=40                " 40 lines of text instead of 24,
         if has("gui_gtk2")
             set guifont=Monospace\ 9
+        elseif has("win32")
+            set guifont=Consolas:h9:cANSI
         else
             set guifont=-misc-fixed-medium-r-semicondensed-*-*-120-*-*-*-*-iso10646-*
         endif
@@ -510,6 +515,14 @@
 
     " Shortcut to rapidly toggle `set list`
     nmap <leader>l :set list!<CR>
+
+    " Quick vimrc editing
+    nnoremap <leader>em :vsplit $MYVIMRC<cr>
+    nnoremap <leader>sm :so $MYVIMRC<cr>
+
+    " Easier help navigation on norwegian keyboard layout
+    nnoremap <leader>hg <C-]>
+    nnoremap <leader>hb <C-T>
 " }
 " Functions {
 

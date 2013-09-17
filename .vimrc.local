@@ -1,61 +1,96 @@
-    if has('gui_running')
-        set guioptions-=T           " remove the toolbar
-        set lines=40                " 40 lines of text instead of 24,
-        if has("gui_gtk2")
-            set guifont=Andale\ Mono\ Regular\ 9,Menlo\ Regular\ 9,Consolas\ Regular\ 9,Courier\ New\ Regular\ 9
-        else
-            set guifont=Andale\ Mono\ Regular:h10,Menlo\ Regular:h10,Consolas\ Regular:h10,Courier\ New\ Regular:h10
-        endif
-        if has('gui_macvim')
-            set transparency=5          " Make the window slightly transparent
-        endif
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker:
+let $LANG = 'en'
+
+if has('gui_running')
+    set guioptions-=T           " remove the toolbar
+    set lines=40                " 40 lines of text instead of 24,
+    if has("gui_gtk2")
+        set guifont=Andale\ Mono\ Regular\ 9,Menlo\ Regular\ 9,Consolas\ Regular\ 9,Courier\ New\ Regular\ 9
     else
-        if &term == 'xterm' || &term == 'screen'
-            set t_Co=256                 " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
-        endif
-        "set term=builtin_ansi       " Make arrow and other keys work
+        set guifont=Consolas:h9:cANSI
     endif
+    if has('gui_macvim')
+        set transparency=5          " Make the window slightly transparent
+    endif
+else
+    if &term == 'xterm' || &term == 'screen'
+        set t_Co=256                 " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
+    endif
+    "set term=builtin_ansi       " Make arrow and other keys work
+endif
 
-    " Keymaps
-    " Remap esc
-    inoremap jj <Esc>
+" Keymaps
+" Remap esc
+inoremap jj <Esc>
 
-    " Remap fold toggle
-    noremap <space> za
+" Remap fold toggle
+noremap <space> za
 
-    " Remap search button
-    noremap - /
+" Remap search button
+noremap - /
 
-    " Easy save
-    noremap <leader>w :w<CR>
+" Easy save
+noremap <leader>w :w<CR>
 
-    " Easy save
-    noremap <leader>W :w!<CR>
+" Easy save
+noremap <leader>W :w!<CR>
 
-    " Clipboard stuff
-    noremap <leader>y "*y
-    noremap <leader>p :set paste<CR>"*p<CR>:set nopaste<CR>
-    noremap <leader>P :set paste<CR>"*P<CR>:set nopaste<CR>
+" Clipboard stuff
+noremap <leader>y "*y
+noremap <leader>p :set paste<CR>"*p<CR>:set nopaste<CR>
+noremap <leader>P :set paste<CR>"*P<CR>:set nopaste<CR>
 
-    " Make backspace work sanely in visual mode
-    vnoremap <bs> x
+" Make backspace work sanely in visual mode
+vnoremap <bs> x
 
-    " Keep search matches in the middle of the window.
-    nnoremap n nzzzv
-    nnoremap N Nzzzv
+" Keep search matches in the middle of the window.
+nnoremap n nzzzv
+nnoremap N Nzzzv
 
-    " Same when jumping around
-    nnoremap g; g;zz
-    nnoremap g, g,zz
+" Same when jumping around
+nnoremap g; g;zz
+nnoremap g, g,zz
 
-    " Toggle "keep current line in the center of the screen" mode
-    nnoremap <leader>C :let &scrolloff=999-&scrolloff<cr>
+" Toggle "keep current line in the center of the screen" mode
+nnoremap <leader>C :let &scrolloff=999-&scrolloff<cr>
 
-    " Tabularize
-    nmap <Leader>a1= :Tabularize /^[^=]*\zs<CR>
-    vmap <Leader>a1= :Tabularize /^[^=]*\zs<CR>
+" Tabularize
+nmap <Leader>a1= :Tabularize /^[^=]*\zs<CR>
+vmap <Leader>a1= :Tabularize /^[^=]*\zs<CR>
 
-    colorscheme railscasts-improved      " Set colorscheme
-    set nospell                          " Disable spell check
-    set foldmethod=syntax                " Set foldmethod to syntax
-    set shiftwidth=2
+colorscheme railscasts-improved      " Set colorscheme
+set nospell                          " Disable spell check
+set foldmethod=syntax                " Set foldmethod to syntax
+set nolist
+set shiftwidth=2
+set tabstop=2
+set softtabstop=2
+
+set listchars=tab:?\ ,eol:¬,trail:.,extends:#,nbsp:.
+
+let g:indent_guides_enable_on_vim_startup = 0
+
+nnoremap <silent> <C-b> :CtrlPMRU<CR>
+
+" Tab remaps {
+  " tab navigation like firefox
+  nnoremap <C-S-tab> :tabprevious<CR>
+  nnoremap <C-tab>   :tabnext<CR>
+  nnoremap <C-t>     :tabnew<CR>
+  inoremap <C-S-tab> <Esc>:tabprevious<CR>i
+  inoremap <C-tab>   <Esc>:tabnext<CR>i
+  inoremap <C-t>     <Esc>:tabnew<CR>
+
+  nnoremap th  :tabfirst<CR>
+  nnoremap tj  :tabnext<CR>
+  nnoremap tk  :tabprev<CR>
+  nnoremap tl  :tablast<CR>
+  nnoremap tt  :tabedit<Space>
+  nnoremap tn  :tabnext<Space>
+  nnoremap tm  :tabm<Space>
+  nnoremap td  :tabclose<CR>
+" }
+
+" Shortcut to rapidly toggle `set list`
+nmap <leader>l :set list!<CR>
+
