@@ -56,7 +56,7 @@ call vundle#rc()
     Bundle 'chrisbra/NrrwRgn'
     Bundle 'Raimondi/delimitMate'
     Bundle 'kana/vim-fakeclip'
-    Bundle 'kien/rainbow_parentheses.vim'
+    Bundle 'amdt/vim-niji'
     " Clojure stuff
     Bundle 'guns/vim-clojure-static'
     Bundle 'tpope/vim-fireplace'
@@ -387,7 +387,7 @@ call vundle#rc()
         let NERDTreeChDirMode=0
         let NERDTreeQuitOnOpen=1
         let NERDTreeMouseMode=2
-        let NERDTreeShowHidden=1
+        let NERDTreeShowHidden=0
         let NERDTreeKeepTreeInNewTab=1
         let g:nerdtree_tabs_open_on_gui_startup=0
     " }
@@ -429,7 +429,7 @@ call vundle#rc()
       let g:SuperTabDefaultCompletionType = "context"
       let g:SuperTabContextDefaultCompletionType = "<c-n>"
     " }
-
+    
 " }
 " GUI Settings {
     if has('gui_running')
@@ -438,6 +438,8 @@ call vundle#rc()
         set lines=40                " 40 lines of text instead of 24,
         if has("gui_gtk2")
             set guifont=Monospace\ 9
+        elseif has("win32")
+            set guifont=Consolas:h9:cANSI
         else
             set guifont=-misc-fixed-medium-r-semicondensed-*-*-120-*-*-*-*-iso10646-*
         endif
@@ -454,17 +456,19 @@ call vundle#rc()
     autocmd BufNewFile,BufRead *.vec set filetype=vector
     autocmd BufNewFile,BufRead *.scs set filetype=spectre
     autocmd BufNewFile,BufRead *.va set filetype=verilogams
-
+    autocmd BufNewFile,BufRead *.clj,*.cljs set filetype=clojure
+    autocmd FileType make setlocal ts=4 sts=4 sw=4 noet
+    autocmd FileType spice setlocal ts=2 sts=2 sw=2 noet
+    autocmd FileType spice call SpiceSettings()
+    autocmd FileType snippet,snippets setlocal ts=2 sts=2 sw=2 noet
+    
+    " Filetype functions "{
     function SpiceSettings()
         set foldmethod=marker
         set foldmarker={,}
         set commentstring=*%s
     endfunction
-
-    autocmd FileType make setlocal ts=4 sts=4 sw=4 noet
-    autocmd FileType spice setlocal ts=2 sts=2 sw=2 noet
-    autocmd FileType spice call SpiceSettings()
-    autocmd FileType snippet,snippets setlocal ts=2 sts=2 sw=2 noet
+    "}
 
 " }
 " Functions {
