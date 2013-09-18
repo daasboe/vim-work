@@ -458,12 +458,12 @@ call vundle#rc()
     autocmd BufNewFile,BufRead *.va set filetype=verilogams
     autocmd BufNewFile,BufRead *.clj,*.cljs set filetype=clojure
     autocmd FileType make setlocal ts=4 sts=4 sw=4 noet
-    autocmd FileType spice setlocal ts=2 sts=2 sw=2 noet
     autocmd FileType spice call SpiceSettings()
     autocmd FileType snippet,snippets setlocal ts=2 sts=2 sw=2 noet
     
     " Filetype functions "{
     function SpiceSettings()
+        set ts=2 sts=2 sw=2 noet
         set foldmethod=marker
         set foldmarker={,}
         set commentstring=*%s
