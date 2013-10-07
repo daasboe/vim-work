@@ -20,7 +20,8 @@ call vundle#rc()
 " }
 " Bundles {
     " Make sure to use http instead of https or git behind proxy
-    let g:vundle_default_git_proto = 'http'
+    let g:vundle_default_git_proto = 'https'
+    let $GIT_SSL_NO_VERIFY = 'true'
     Bundle 'gmarik/vundle'
     Bundle 'MarcWeber/vim-addon-mw-utils'
     Bundle 'tomtom/tlib_vim'
@@ -57,6 +58,7 @@ call vundle#rc()
     Bundle 'Raimondi/delimitMate'
     Bundle 'kana/vim-fakeclip'
     Bundle 'amdt/vim-niji'
+    Bundle 'nathanaelkane/vim-indent-guides'
     " Clojure stuff
     Bundle 'guns/vim-clojure-static'
     Bundle 'tpope/vim-fireplace'
@@ -426,10 +428,14 @@ call vundle#rc()
     " }
 
     " Supertab {
-      let g:SuperTabDefaultCompletionType = "context"
-      let g:SuperTabContextDefaultCompletionType = "<c-n>"
+        let g:SuperTabDefaultCompletionType = "context"
+        let g:SuperTabContextDefaultCompletionType = "<c-n>"
     " }
     
+    " Indent guides {
+        let g:indent_guides_start_level = 2
+        let g:indent_guides_guide_size = 1
+    " }
 " }
 " GUI Settings {
     if has('gui_running')
