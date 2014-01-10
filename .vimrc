@@ -25,7 +25,7 @@ call vundle#rc()
     Bundle 'gmarik/vundle'
     Bundle 'MarcWeber/vim-addon-mw-utils'
     Bundle 'tomtom/tlib_vim'
-    Bundle 'myusuf3/numbers.vim'
+    "Bundle 'myusuf3/numbers.vim'
     Bundle 'Lokaltog/vim-powerline'
     Bundle 'scrooloose/nerdcommenter'
     " Snippets & AutoComplete
@@ -85,7 +85,7 @@ call vundle#rc()
     set background=dark                  " Assume a dark background
     colorscheme railscasts-improved      " Set colorscheme
     if !has('gui')
-        set background=light         " Assume a light background
+        set background=dark         " Assume a dark background
     endif
     filetype plugin indent on   " Automatically detect file types.
     syntax on                   " Syntax highlighting
