@@ -25,8 +25,9 @@ call vundle#rc()
     Bundle 'gmarik/vundle'
     Bundle 'MarcWeber/vim-addon-mw-utils'
     Bundle 'tomtom/tlib_vim'
-    Bundle 'myusuf3/numbers.vim'
-    Bundle 'Lokaltog/vim-powerline'
+    "Bundle 'myusuf3/numbers.vim'
+    "Bundle 'Lokaltog/vim-powerline'
+    Bundle 'itchyny/lightline.vim'
     Bundle 'scrooloose/nerdcommenter'
     " Snippets & AutoComplete
         Bundle 'garbas/vim-snipmate'
@@ -45,7 +46,7 @@ call vundle#rc()
     Bundle 'kien/ctrlp.vim'
     Bundle 'vim-scripts/sessionman.vim'
     Bundle 'matchit.zip'
-    Bundle 'Lokaltog/vim-easymotion'
+    "Bundle 'Lokaltog/vim-easymotion'
     Bundle 'godlygeek/csapprox'
     Bundle 'jistr/vim-nerdtree-tabs'
     Bundle 'flazz/vim-colorschemes'
@@ -61,8 +62,10 @@ call vundle#rc()
     Bundle 'nathanaelkane/vim-indent-guides'
     " Clojure stuff
     Bundle 'guns/vim-clojure-static'
+    Bundle 'guns/vim-clojure-highlight'
     Bundle 'tpope/vim-fireplace'
     Bundle 'tpope/vim-classpath'
+    Bundle 'kovisoft/slimv'
     " node.js stuff
     Bundle 'digitaltoad/vim-jade'
     Bundle 'myhere/vim-nodejs-complete'
@@ -83,7 +86,7 @@ call vundle#rc()
 " General {
 
     set background=dark                  " Assume a dark background
-    colorscheme railscasts-improved      " Set colorscheme
+    colorscheme wombat                 " Set colorscheme
     if !has('gui')
         set background=light         " Assume a light background
     endif
@@ -104,6 +107,7 @@ call vundle#rc()
 
     set autowrite                       " Automatically write a file when leaving a modified buffer
     set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
+    set shortmess+=A                    " Dont ask when swap file exist
     set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
     set virtualedit=onemore             " Allow for cursor beyond last character
     set history=1000                    " Store a ton of history (default is 20)
@@ -436,6 +440,19 @@ call vundle#rc()
         let g:indent_guides_start_level = 2
         let g:indent_guides_guide_size = 1
     " }
+
+    " Clojure static {
+        let g:clojure_align_multiline_strings = 1
+    " }
+    " Lightline{
+            let g:lightline = {
+                        \ 'colorscheme': 'wombat',
+                        \ }
+    "}
+    " Slimv {
+        "let g:slimv_swank_cmd = '!osascript -e "tell application \"Terminal\" to do script \"sbcl --load ~/.vim/bundle/slimv/slime/start-swank.lisp\""'
+        "let g:slimv_swank_clojure = '!osascript -e lein swank &' 
+    " }
 " }
 " GUI Settings {
     if has('gui_running')
@@ -447,7 +464,8 @@ call vundle#rc()
         elseif has("win32")
             set guifont=Consolas:h9:cANSI
         else
-            set guifont=-misc-fixed-medium-r-semicondensed-*-*-120-*-*-*-*-iso10646-*
+            "set guifont=-misc-fixed-medium-r-semicondensed-*-*-120-*-*-*-*-iso10646-*
+            set guifont=Inconsolata:h14
         endif
     else
         if &term == 'xterm' || &term == 'screen'
