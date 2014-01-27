@@ -65,7 +65,7 @@ call vundle#rc()
     Bundle 'guns/vim-clojure-highlight'
     Bundle 'tpope/vim-fireplace'
     Bundle 'tpope/vim-classpath'
-    Bundle 'kovisoft/slimv'
+    "Bundle 'kovisoft/slimv'
     " node.js stuff
     Bundle 'digitaltoad/vim-jade'
     Bundle 'myhere/vim-nodejs-complete'
