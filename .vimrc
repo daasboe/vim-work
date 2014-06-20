@@ -90,6 +90,10 @@ call vundle#rc()
       Bundle 'vim-scripts/spectre.vim'
       Bundle 'vim-scripts/ocean.vim'
     " }
+    "
+    " Profitbase{
+    Bundle 'vim-scripts/mdx.vim'
+    "}
 " }
 " General {
 
