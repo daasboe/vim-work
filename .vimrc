@@ -22,10 +22,12 @@
     Plug 'scrooloose/nerdcommenter'
     Plug 'scrooloose/syntastic'
     Plug 'morhetz/gruvbox'
-    Plug 'bling/vim-airline'
     Plug 'kien/ctrlp.vim'
     Plug 'flazz/vim-colorschemes'
+    Plug 'bling/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
+    Plug 'tpope/vim-fugitive'
+    Plug 'airblade/vim-gitgutter'
     Plug 'moll/vim-node', {'for' : 'javascript'}
     Plug 'pangloss/vim-javascript', {'for' : 'javascript'}
     Plug 'ervandew/supertab'
@@ -35,7 +37,7 @@
     Plug 'tpope/vim-surround'
     Plug 'raimondi/delimitmate'
     Plug 'ternjs/tern_for_vim'
-    Plug 'mhinz/vim-signify'
+    "Plug 'mhinz/vim-signify'
 
 
     " Initialize plugin system
@@ -330,12 +332,13 @@
         let g:nerdtree_tabs_open_on_gui_startup=0
     " }
     " Airline{
-        "let g:airline_powerline_fonts=1
         let g:airline_theme='wombat'
-        if !exists('g:airline_symbols')
-        let g:airline_symbols = {}
-        endif
+        "
+        "if !exists('g:airline_symbols')
+          "let g:airline_symbols = {}
+        "endif
 
+          let g:airline_symbols = {}
         " unicode symbols
         let g:airline_left_sep = '»'
         let g:airline_left_sep = ''
