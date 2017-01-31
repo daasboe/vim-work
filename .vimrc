@@ -7,106 +7,49 @@ set nocompatible        " must be first line
 set encoding=utf-8
 set background=dark     " Assume a dark background
 let $LANG = "en_US.UTF-8"
-" }
-" Setup Bundle Support {
-" The next two lines ensure that the ~/.vim/bundle/ system works
+set langmenu=en_US.UTF-8
+
+
+set nrformats-=octal
+
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
 
-" }
-" }
-" Bundles {
-    " Make sure to use http instead of https or git behind proxy
-    let g:vundle_default_git_proto = 'https'
-    let $GIT_SSL_NO_VERIFY = 'true'
-    Bundle 'gmarik/vundle'
-    Bundle 'MarcWeber/vim-addon-mw-utils'
-    Bundle 'tomtom/tlib_vim'
-    "Bundle 'myusuf3/numbers.vim'
-    "Bundle 'Lokaltog/vim-powerline'
-    "Bundle 'itchyny/lightline.vim'
-    Bundle 'bling/vim-airline'
-    "Bundle 'bling/vim-bufferline'
-    Bundle 'scrooloose/nerdcommenter'
-    " Snippets & AutoComplete
-        Bundle 'Shougo/neocomplcache.vim'
-        Bundle 'Shougo/neosnippet.vim'
-        Bundle 'Shougo/neosnippet-snippets'
-        "Bundle 'garbas/vim-snipmate'
-        "Bundle 'honza/vim-snippets'
-        "Bundle 'ervandew/supertab'
-        "" Source support_function.vim to support snipmate-snippets.
-        "if filereadable(expand("~/.vim/bundle/snipmate-snippets/snippets/support_functions.vim"))
-            "source ~/.vim/bundle/snipmate-snippets/snippets/support_functions.vim
-        "endif
-    if executable('ctags')
-        Bundle 'majutsushi/tagbar'
-    endif
-    Bundle 'scrooloose/nerdtree'
-    Bundle 'spf13/vim-colors'
-    Bundle 'morhetz/gruvbox'
-    Bundle 'tpope/vim-surround'
-    Bundle 'kien/ctrlp.vim'
-    Bundle 'vim-scripts/sessionman.vim'
-    Bundle 'matchit.zip'
-    "Bundle 'Lokaltog/vim-easymotion'
-    Bundle 'godlygeek/csapprox'
-    Bundle 'jistr/vim-nerdtree-tabs'
-    Bundle 'flazz/vim-colorschemes'
-    Bundle 'mbbill/undotree'
-    Bundle 'tpope/vim-fugitive'
-    Bundle 'godlygeek/tabular'
-    Bundle 'daasboe/vim-extra-colors'
-    Bundle 'chmllr/vim-colorscheme-elrodeo'
-    Bundle 'chrisbra/NrrwRgn'
-    Bundle 'Raimondi/delimitMate'
-    Bundle 'kana/vim-fakeclip'
-    Bundle 'amdt/vim-niji'
-    Bundle 'nathanaelkane/vim-indent-guides'
-    " Clojure stuff
-    Bundle 'guns/vim-clojure-static'
-    Bundle 'guns/vim-clojure-highlight'
-    Bundle 'tpope/vim-fireplace'
-    Bundle 'tpope/vim-classpath'
-    "Bundle 'kovisoft/slimv'
-    Bundle 'vim-scripts/paredit.vim'
-    "Bundle 'dgrnbrg/vim-redl'
-    " node.js stuff
-    "Bundle 'digitaltoad/vim-jade'
-    "Bundle 'myhere/vim-nodejs-complete'
+" Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
+call plug#begin('~/.vim/plugged')
 
-    " Javascript checker
-    Bundle 'walm/jshint.vim'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/syntastic'
+Plug 'morhetz/gruvbox'
+Plug 'bling/vim-airline'
+Plug 'kien/ctrlp.vim'
+Plug 'flazz/vim-colorschemes'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'moll/vim-node', {'for' : 'javascript'}
+Plug 'pangloss/vim-javascript', {'for' : 'javascript'}
+Plug 'ervandew/supertab'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'Valloric/YouCompleteMe'
+Plug 'tpope/vim-surround'
+Plug 'raimondi/delimitmate'
+Plug 'ternjs/tern_for_vim'
+Plug 'mhinz/vim-signify'
 
-    " Python stuff
-    Bundle 'tmhedberg/SimpylFold'
 
-    " Syntax check
-    Bundle 'scrooloose/syntastic'
-    " Electronics {
-      Bundle 'vim-scripts/spectre.vim'
-      Bundle 'vim-scripts/ocean.vim'
-    " }
-    "
-    " Profitbase{
-    Bundle 'vim-scripts/mdx.vim'
-    "}
-" }
+" Initialize plugin system
+call plug#end()
+
+
 " General {
-
-    set background=dark                  " Assume a dark background
-    colorscheme gruvbox                 " Set colorscheme
-    if !has('gui')
-        set background=dark         " Assume a dark background
-    endif
     filetype plugin indent on   " Automatically detect file types.
     syntax on                   " Syntax highlighting
     set mouse=a                 " Automatically enable mouse usage
     set mousehide               " Hide the mouse cursor while typing
     scriptencoding utf-8
+    colorscheme gruvbox                 " Set colorscheme
 
     if has ('x') && has ('gui') " On Linux use + register for copy-paste
         set clipboard=unnamedplus
@@ -135,18 +78,9 @@ call vundle#rc()
             set undolevels=1000         " Maximum number of changes that can be undone
             set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
         endif
-
-        " To disable views add the following to your .vimrc.bundles.local file:
-        "   let g:spf13_no_views = 1
-        if !exists('g:spf13_no_views')
-            " Add exclusions to mkview and loadview
-            " eg: *.*, svn-commit.tmp
-            let g:skipview_files = [
-                \ '\[example pattern\]'
-                \ ]
-        endif
     " }
-" }
+" } General
+
 " Vim UI {
     set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
@@ -188,8 +122,30 @@ call vundle#rc()
     set foldmethod=syntax           " Set foldmethod to syntax
     " Use the same symbols as TextMate for tabstops and EOLs
     set listchars=tab:▸\ ,eol:¬,trail:.,extends:#,nbsp:.
+    set completeopt-=preview
 
 " }
+"
+" GUI Settings {
+    if has('gui_running')
+        set guioptions-=T           " remove the toolbar
+        set guioptions-=m           " remove the menubar
+        set lines=40                " 40 lines of text instead of 24,
+        if has("gui_gtk2")
+            set guifont=Monospace\ 9
+        elseif has("win32")
+            set guifont=Consolas:h9:cANSI
+        else
+            "set guifont=-misc-fixed-medium-r-semicondensed-*-*-120-*-*-*-*-iso10646-*
+            set guifont=Inconsolata:h14
+        endif
+    else
+        if &term == 'xterm' || &term == 'screen'
+            set t_Co=256                 " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
+        endif
+        "set term=builtin_ansi       " Make arrow and other keys work
+    endif
+"}
 " Formatting {
 
     set nowrap                      " Wrap long lines
@@ -362,151 +318,7 @@ call vundle#rc()
     nnoremap <leader>hg <C-]>
     nnoremap <leader>hb <C-T>
 " }
-" Plugins {
-    "" OmniComplete {
-        "if has("autocmd") && exists("+omnifunc")
-            "autocmd Filetype *
-                "\if &omnifunc == "" |
-                "\setlocal omnifunc=syntaxcomplete#Complete |
-                "\endif
-        "endif
-
-        "hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
-        "hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
-        "hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
-
-        "" Some convenient mappings
-        "inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-        "inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
-        "inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-        "inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-        "inoremap <expr> <C-d>      pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-        "inoremap <expr> <C-u>      pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
-
-        "" Automatically open and close the popup menu / preview window
-        "au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-        "set completeopt=menu,preview,longest
-    "" }
-    " Neocomplcache {
-        "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-        " Disable AutoComplPop.
-        let g:acp_enableAtStartup = 0
-        " Use neocomplcache.
-        let g:neocomplcache_enable_at_startup = 1
-        " Use smartcase.
-        let g:neocomplcache_enable_smart_case = 1
-        " Set minimum syntax keyword length.
-        let g:neocomplcache_min_syntax_length = 3
-        let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-
-        " Enable heavy features.
-        " Use camel case completion.
-        "let g:neocomplcache_enable_camel_case_completion = 1
-        " Use underbar completion.
-        "let g:neocomplcache_enable_underbar_completion = 1
-
-        " Define dictionary.
-        let g:neocomplcache_dictionary_filetype_lists = {
-            \ 'default' : '',
-            \ 'vimshell' : $HOME.'/.vimshell_hist',
-            \ 'scheme' : $HOME.'/.gosh_completions'
-                \ }
-
-        " Define keyword.
-        if !exists('g:neocomplcache_keyword_patterns')
-            let g:neocomplcache_keyword_patterns = {}
-        endif
-        let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-
-        " Plugin key-mappings.
-        inoremap <expr><C-g>     neocomplcache#undo_completion()
-        inoremap <expr><C-l>     neocomplcache#complete_common_string()
-
-        " Recommended key-mappings.
-        " <CR>: close popup and save indent.
-        inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-        function! s:my_cr_function()
-          return neocomplcache#smart_close_popup() . "\<CR>"
-          " For no inserting <CR> key.
-          "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-        endfunction
-        " <TAB>: completion.
-        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-        inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
-        " <C-h>, <BS>: close popup and delete backword char.
-        inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-        inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-        inoremap <expr><C-y>  neocomplcache#close_popup()
-        inoremap <expr><C-e>  neocomplcache#cancel_popup()
-        " Close popup by <Space>.
-        "inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() : "\<Space>"
-
-        " For cursor moving in insert mode(Not recommended)
-        "inoremap <expr><Left>  neocomplcache#close_popup() . "\<Left>"
-        "inoremap <expr><Right> neocomplcache#close_popup() . "\<Right>"
-        "inoremap <expr><Up>    neocomplcache#close_popup() . "\<Up>"
-        "inoremap <expr><Down>  neocomplcache#close_popup() . "\<Down>"
-        " Or set this.
-        "let g:neocomplcache_enable_cursor_hold_i = 1
-        " Or set this.
-        "let g:neocomplcache_enable_insert_char_pre = 1
-
-        " AutoComplPop like behavior.
-        "let g:neocomplcache_enable_auto_select = 1
-
-        " Shell like behavior(not recommended).
-        "set completeopt+=longest
-        "let g:neocomplcache_enable_auto_select = 1
-        "let g:neocomplcache_disable_auto_complete = 1
-        "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-        " Enable omni completion.
-        autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-        autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-        autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-        autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-        autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-        " Enable heavy omni completion.
-        if !exists('g:neocomplcache_omni_patterns')
-          let g:neocomplcache_omni_patterns = {}
-        endif
-        let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-        let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-        let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-        " For perlomni.vim setting.
-        " https://github.com/c9s/perlomni.vim
-        let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-    "}
-    " Neosnippet{
-        " Plugin key-mappings.
-        imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-        smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-        xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-        " SuperTab like snippets behavior.
-        "imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-        "\ "\<Plug>(neosnippet_expand_or_jump)"
-        "\: pumvisible() ? "\<C-n>" : "\<TAB>"
-        "smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-        "\ "\<Plug>(neosnippet_expand_or_jump)"
-        "\: "\<TAB>"
-
-        " For snippet_complete marker.
-        if has('conceal')
-          set conceallevel=2 concealcursor=i
-        endif
-    "}
-    " Misc {
-        let g:NERDShutUp=1
-        let b:match_ignorecase = 1
-    " }
-
-    " Ctags {
-        set tags=./tags;/,~/.vimtags
-    " }
-
+" Plugin configurations {
     " NerdTree {
         map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
         map <leader>e :NERDTreeFind<CR>
@@ -521,67 +333,7 @@ call vundle#rc()
         let NERDTreeKeepTreeInNewTab=1
         let g:nerdtree_tabs_open_on_gui_startup=0
     " }
-
-    " Tabularize {
-        nmap <leader>a& :Tabularize /&<CR>
-        vmap <leader>a& :Tabularize /&<CR>
-        nmap <leader>a= :Tabularize /=<CR>
-        vmap <leader>a= :Tabularize /=<CR>
-        nmap <leader>a: :Tabularize /:<CR>
-        vmap <leader>a: :Tabularize /:<CR>
-        nmap <leader>a:: :Tabularize /:\zs<CR>
-        vmap <leader>a:: :Tabularize /:\zs<CR>
-        nmap <leader>a, :Tabularize /,<CR>
-        vmap <leader>a, :Tabularize /,<CR>
-        nmap <leader>a<Bar> :Tabularize /<Bar><CR>
-        vmap <leader>a<Bar> :Tabularize /<Bar><CR>
-        nmap <leader>a1= :Tabularize /^[^=]*\zs<CR>
-        vmap <leader>a1= :Tabularize /^[^=]*\zs<CR>
-        nmap <leader>as:Tabularize /\s<CR>
-        vmap <leader>as :Tabularize /\s<CR>
-        nmap <leader>a+ :Tabularize /<+<CR>
-        vmap <leader>a+ :Tabularize /<+<CR>
-    " }
-
-    " Session List {
-        set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
-        nmap <leader>sl :SessionList<CR>
-        nmap <leader>ss :SessionSave<CR>
-    " }
-
-    " UndoTree {
-        nnoremap <Leader>u :UndotreeToggle<CR>
-        " If undotree is opened, it is likely one wants to interact with it.
-        let g:undotree_SetFocusWhenToggle=1
-    " }
-
-    " Supertab {
-        let g:SuperTabDefaultCompletionType = "context"
-        let g:SuperTabContextDefaultCompletionType = "<c-n>"
-    " }
-
-    " Indent guides {
-        let g:indent_guides_start_level = 2
-        let g:indent_guides_guide_size = 1
-    " }
-    " Paredit{
-        nnoremap <leader><leader>e :%Eval<CR>
-    " }
-
-    " Clojure static {
-        let g:clojure_align_multiline_strings = 1
-    " }
-    " Lightline{
-            let g:lightline = {
-                        \ 'colorscheme': 'wombat',
-                        \ }
-    "}
-    " Slimv {
-        "let g:slimv_swank_cmd = '!osascript -e "tell application \"Terminal\" to do script \"sbcl --load ~/.vim/bundle/slimv/slime/start-swank.lisp\""'
-        "let g:slimv_swank_clojure = '!osascript -e lein swank &'
-    " }
-    "{
-    "}
+    "
     " Airline{
         "let g:airline_powerline_fonts=1
         let g:airline_theme='wombat'
@@ -603,60 +355,34 @@ call vundle#rc()
         let g:airline_symbols.paste = '∥'
         let g:airline_symbols.whitespace = 'Ξ'
     "}
-" }
-" GUI Settings {
-    if has('gui_running')
-        set guioptions-=T           " remove the toolbar
-        set guioptions-=m           " remove the menubar
-        set lines=40                " 40 lines of text instead of 24,
-        if has("gui_gtk2")
-            set guifont=Monospace\ 9
-        elseif has("win32")
-            set guifont=Consolas:h9:cANSI
-        else
-            "set guifont=-misc-fixed-medium-r-semicondensed-*-*-120-*-*-*-*-iso10646-*
-            set guifont=Inconsolata:h14
-        endif
-    else
-        if &term == 'xterm' || &term == 'screen'
-            set t_Co=256                 " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
-        endif
-        "set term=builtin_ansi       " Make arrow and other keys work
-    endif
-"}
-" Filetypes {
-    autocmd BufNewFile,BufRead *.ocn set filetype=ocean
-    autocmd BufNewFile,BufRead *.sp,*.cir,*.ana set filetype=spice
-    autocmd BufNewFile,BufRead *.vec set filetype=vector
-    autocmd BufNewFile,BufRead *.scs set filetype=spectre
-    autocmd BufNewFile,BufRead *.va set filetype=verilogams
-    autocmd BufNewFile,BufRead *.clj,*.cljs set filetype=clojure
-    autocmd FileType make setlocal ts=4 sts=4 sw=4 noet
-    autocmd FileType spice call SpiceSettings()
-    autocmd FileType snippet,snippets setlocal ts=2 sts=2 sw=2 noet
+    "
 
-    " Filetype functions "{
-    function SpiceSettings()
-        set ts=2 sts=2 sw=2 noet
-        set foldmethod=marker
-        set foldmarker={,}
-        set commentstring=*%s
-    endfunction
-    "}
+    "  Ultisnips, YouCompleteMe and SuperTab {
+        " YouCompleteMe and UltiSnips compatibility, with the helper of supertab
+        let g:ycm_key_list_select_completion   = ['<C-j>', '<C-n>', '<Down>']
+        let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
 
+        let g:SuperTabDefaultCompletionType    = '<C-n>'
+        let g:SuperTabCrMapping                = 0
+
+        let g:UltiSnipsExpandTrigger="<tab>"
+        let g:UltiSnipsJumpForwardTrigger="<tab>"
+        let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+        let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
+    " }
+    " Syntastic {
+        set statusline+=%#warningmsg#
+        set statusline+=%{SyntasticStatuslineFlag()}
+        set statusline+=%*
+
+        let g:syntastic_always_populate_loc_list = 1
+        let g:syntastic_auto_loc_list = 1
+        let g:syntastic_check_on_open = 1
+        let g:syntastic_check_on_wq = 0
+    " }
 " }
 " Functions {
-
-    " UnBundle {
-    function! UnBundle(arg, ...)
-      let bundle = vundle#config#init_bundle(a:arg, a:000)
-      call filter(g:bundles, 'v:val["name_spec"] != "' . a:arg . '"')
-    endfunction
-
-    com! -nargs=+         UnBundle
-    \ call UnBundle(<args>)
-    " }
-
+"
     " Initialize directories {
     function! InitializeDirectories()
         let parent = $HOME
@@ -697,21 +423,8 @@ call vundle#rc()
             endif
         endfor
     endfunction
-    " }
+    call InitializeDirectories()
 
-    " Initialize NERDTree as needed {
-    function! NERDTreeInitAsNeeded()
-        redir => bufoutput
-        buffers!
-        redir END
-        let idx = stridx(bufoutput, "NERD_tree")
-        if idx > -1
-            NERDTreeMirror
-            NERDTreeFind
-            wincmd l
-        endif
-    endfunction
-    " }
 
     " Strip whitespace {
     function! StripTrailingWhitespace()
@@ -731,7 +444,4 @@ call vundle#rc()
         endif
     endfunction
     " }
-
-    call InitializeDirectories()
-
 " }
