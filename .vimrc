@@ -4,7 +4,6 @@
 " Basic {
     set nocompatible        " must be first line
     set encoding=utf-8
-    set background=dark     " Assume a dark background
     let $LANG = "en_US.UTF-8"
     set langmenu=en_US.UTF-8
 
@@ -38,6 +37,7 @@
     Plug 'raimondi/delimitmate'
     Plug 'ternjs/tern_for_vim'
     "Plug 'mhinz/vim-signify'
+    Plug 'altercation/vim-colors-solarized'
 
 
     " Initialize plugin system
@@ -49,7 +49,9 @@
     set mouse=a                 " Automatically enable mouse usage
     set mousehide               " Hide the mouse cursor while typing
     scriptencoding utf-8
-    colorscheme gruvbox                 " Set colorscheme
+
+    set background=dark     " Assume a dark background
+    colorscheme solarized                 " Set colorscheme
 
     if has ('x') && has ('gui') " On Linux use + register for copy-paste
         set clipboard=unnamedplus
