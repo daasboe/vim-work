@@ -1,48 +1,46 @@
 " Header {
 " vim: set sw=4 sts=4 foldmarker={,} foldlevel=0 foldmethod=marker:
 " }
-" Environment {
-" Basics {
-set nocompatible        " must be first line
-set encoding=utf-8
-set background=dark     " Assume a dark background
-let $LANG = "en_US.UTF-8"
-set langmenu=en_US.UTF-8
+" Basic {
+    set nocompatible        " must be first line
+    set encoding=utf-8
+    set background=dark     " Assume a dark background
+    let $LANG = "en_US.UTF-8"
+    set langmenu=en_US.UTF-8
 
 
-set nrformats-=octal
+    set nrformats-=octal
 
-set nocompatible               " be iMproved
-filetype off                   " required!
-
-
+    set nocompatible               " be iMproved
+    filetype off                   " required!
+" }
+" Plugins {
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
-call plug#begin('~/.vim/plugged')
+    call plug#begin('~/.vim/plugged')
 
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/syntastic'
-Plug 'morhetz/gruvbox'
-Plug 'bling/vim-airline'
-Plug 'kien/ctrlp.vim'
-Plug 'flazz/vim-colorschemes'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'moll/vim-node', {'for' : 'javascript'}
-Plug 'pangloss/vim-javascript', {'for' : 'javascript'}
-Plug 'ervandew/supertab'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'Valloric/YouCompleteMe'
-Plug 'tpope/vim-surround'
-Plug 'raimondi/delimitmate'
-Plug 'ternjs/tern_for_vim'
-Plug 'mhinz/vim-signify'
-
-
-" Initialize plugin system
-call plug#end()
+    Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+    Plug 'scrooloose/nerdcommenter'
+    Plug 'scrooloose/syntastic'
+    Plug 'morhetz/gruvbox'
+    Plug 'bling/vim-airline'
+    Plug 'kien/ctrlp.vim'
+    Plug 'flazz/vim-colorschemes'
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'moll/vim-node', {'for' : 'javascript'}
+    Plug 'pangloss/vim-javascript', {'for' : 'javascript'}
+    Plug 'ervandew/supertab'
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
+    Plug 'Valloric/YouCompleteMe'
+    Plug 'tpope/vim-surround'
+    Plug 'raimondi/delimitmate'
+    Plug 'ternjs/tern_for_vim'
+    Plug 'mhinz/vim-signify'
 
 
+    " Initialize plugin system
+    call plug#end()
+"}
 " General {
     filetype plugin indent on   " Automatically detect file types.
     syntax on                   " Syntax highlighting
@@ -80,7 +78,6 @@ call plug#end()
         endif
     " }
 " } General
-
 " Vim UI {
     set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
@@ -125,7 +122,6 @@ call plug#end()
     set completeopt-=preview
 
 " }
-"
 " GUI Settings {
     if has('gui_running')
         set guioptions-=T           " remove the toolbar
@@ -333,7 +329,6 @@ call plug#end()
         let NERDTreeKeepTreeInNewTab=1
         let g:nerdtree_tabs_open_on_gui_startup=0
     " }
-    "
     " Airline{
         "let g:airline_powerline_fonts=1
         let g:airline_theme='wombat'
@@ -355,8 +350,6 @@ call plug#end()
         let g:airline_symbols.paste = '∥'
         let g:airline_symbols.whitespace = 'Ξ'
     "}
-    "
-
     "  Ultisnips, YouCompleteMe and SuperTab {
         " YouCompleteMe and UltiSnips compatibility, with the helper of supertab
         let g:ycm_key_list_select_completion   = ['<C-j>', '<C-n>', '<Down>']
