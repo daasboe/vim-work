@@ -121,6 +121,7 @@
     set scrolloff=3                 " Minimum lines to keep above and below cursor
     set foldenable                  " Auto fold code
     set foldmethod=syntax           " Set foldmethod to syntax
+    set foldlevelstart=20
     " Use the same symbols as TextMate for tabstops and EOLs
     set listchars=tab:▸\ ,eol:¬,trail:.,extends:#,nbsp:.
     set completeopt-=preview
