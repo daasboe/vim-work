@@ -38,7 +38,7 @@
     Plug 'ternjs/tern_for_vim'
     "Plug 'mhinz/vim-signify'
     Plug 'altercation/vim-colors-solarized'
-
+    Plug 'tpope/vim-unimpaired'
 
     " Initialize plugin system
     call plug#end()
@@ -221,8 +221,8 @@
     cmap cd. lcd %:p:h
 
     " Visual shifting (does not exit Visual mode)
-    vnoremap < <gv
-    vnoremap > >gv
+    vnoremap <leader>< <gv
+    vnoremap <leader>> >gv
 
     " Fix home and end keybindings for screen, particularly on mac
     " - for some reason this fixes the arrow keys too. huh.
@@ -318,6 +318,14 @@
     " Easier help navigation on norwegian keyboard layout
     nnoremap <leader>hg <C-]>
     nnoremap <leader>hb <C-T>
+
+    " unimpared mappings
+    nmap < [
+    nmap > ]
+    omap < [
+    omap > ]
+    xmap < [
+    xmap > ]
 " }
 " Plugin configurations {
     " NerdTree {
