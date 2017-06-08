@@ -51,7 +51,7 @@
     scriptencoding utf-8
 
     set background=dark     " Assume a dark background
-    colorscheme solarized                 " Set colorscheme
+    colorscheme gruvbox                 " Set colorscheme
 
     if has ('x') && has ('gui') " On Linux use + register for copy-paste
         set clipboard=unnamedplus
