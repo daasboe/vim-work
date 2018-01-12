@@ -51,7 +51,7 @@
     scriptencoding utf-8
 
     set background=dark     " Assume a dark background
-    colorscheme solarized                 " Set colorscheme
+    colorscheme gruvbox                 " Set colorscheme
 
     if has ('x') && has ('gui') " On Linux use + register for copy-paste
         set clipboard=unnamedplus
@@ -320,13 +320,13 @@
     nnoremap <leader>hb <C-T>
 
     " unimpared mappings
-    nmap < [
-    nmap > ]
-    omap < [
-    omap > ]
-    xmap < [
-    xmap > ]
-" }
+    "nmap < [
+    "nmap > ]
+    "omap < [
+    "omap > ]
+    "xmap < [
+    "xmap > ]
+ "}
 " Plugin configurations {
     " NerdTree {
         map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
@@ -372,7 +372,7 @@
         let g:SuperTabDefaultCompletionType    = '<C-n>'
         let g:SuperTabCrMapping                = 0
 
-        let g:UltiSnipsExpandTrigger="<tab>"
+        let g:UltiSnipsExpandTrigger="<C-space>"
         let g:UltiSnipsJumpForwardTrigger="<tab>"
         let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
         let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
@@ -386,6 +386,10 @@
         let g:syntastic_auto_loc_list = 1
         let g:syntastic_check_on_open = 1
         let g:syntastic_check_on_wq = 0
+
+        let g:syntastic_javascript_checkers = ['eslint']
+        "let g:syntastic_javascript_jsxhint_exec = 'jsx-jshint-wrapper'
+
     " }
 " }
 " Functions {
