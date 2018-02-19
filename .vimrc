@@ -29,6 +29,7 @@
     Plug 'airblade/vim-gitgutter'
     Plug 'moll/vim-node', {'for' : 'javascript'}
     Plug 'pangloss/vim-javascript', {'for' : 'javascript'}
+    Plug 'othree/javascript-libraries-syntax.vim'
     Plug 'ervandew/supertab'
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
@@ -38,8 +39,13 @@
     Plug 'ternjs/tern_for_vim'
     "Plug 'mhinz/vim-signify'
     Plug 'altercation/vim-colors-solarized'
+    Plug 'tpope/vim-unimpaired'
+    Plug 'burnettk/vim-angular'
+    Plug 'matthewsimo/angular-vim-snippets'
+    Plug 'vim-scripts/SyntaxComplete'
+    Plug 'mattn/emmet-vim'
+    "Plug 'alvan/vim-closetag'
     Plug 'joshdick/onedark.vim'
-
 
     " Initialize plugin system
     call plug#end()
@@ -222,8 +228,8 @@
     cmap cd. lcd %:p:h
 
     " Visual shifting (does not exit Visual mode)
-    vnoremap < <gv
-    vnoremap > >gv
+    vnoremap <leader>< <gv
+    vnoremap <leader>> >gv
 
     " Fix home and end keybindings for screen, particularly on mac
     " - for some reason this fixes the arrow keys too. huh.
@@ -319,7 +325,15 @@
     " Easier help navigation on norwegian keyboard layout
     nnoremap <leader>hg <C-]>
     nnoremap <leader>hb <C-T>
-" }
+
+    " unimpared mappings
+    "nmap < [
+    "nmap > ]
+    "omap < [
+    "omap > ]
+    "xmap < [
+    "xmap > ]
+ "}
 " Plugin configurations {
     " NerdTree {
         map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
@@ -365,10 +379,10 @@
         let g:SuperTabDefaultCompletionType    = '<C-n>'
         let g:SuperTabCrMapping                = 0
 
-        let g:UltiSnipsExpandTrigger="<tab>"
+        let g:UltiSnipsExpandTrigger="<C-space>"
         let g:UltiSnipsJumpForwardTrigger="<tab>"
         let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-        let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
+        let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips' , '~/.vim/plugged/angular-vim-snippets/UltiSnips']
     " }
     " Syntastic {
         set statusline+=%#warningmsg#
@@ -379,7 +393,49 @@
         let g:syntastic_auto_loc_list = 1
         let g:syntastic_check_on_open = 1
         let g:syntastic_check_on_wq = 0
+
+        let g:syntastic_javascript_checkers = ['eslint']
+        "let g:syntastic_javascript_jsxhint_exec = 'jsx-jshint-wrapper'
+
     " }
+    " SyntaxComplete {
+        if has("autocmd") && exists("+omnifunc")
+            autocmd Filetype *
+                        \	if &omnifunc == "" |
+                        \		setlocal omnifunc=syntaxcomplete#Complete |
+                        \	endif
+        endif
+    " }
+    " javascript-libraries-syntax {
+        let g:used_javascript_libs = 'angularjs'
+    " }
+    " Emmet {
+        let g:user_emmet_install_global = 0
+        autocmd FileType html,css EmmetInstall
+    "  }
+    ""  Closetags {
+        "" filenames like *.xml, *.html, *.xhtml, ...  " Then after you press <kbd>&gt;</kbd> in these files, this plugin will try to close the current tag.
+        ""
+        "let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
+
+        "" filenames like *.xml, *.xhtml, ...
+        "" This will make the list of non closing tags self closing in the specified files.
+        ""
+        "let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+
+        "" integer value [0|1]
+        "" This will make the list of non closing tags case sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
+        ""
+        "let g:closetag_emptyTags_caseSensitive = 1
+
+        "" Shortcut for closing tags, default is '>'
+        ""
+        "let g:closetag_shortcut = '>'
+
+        "" Add > at current position without closing the current tag, default is ''
+        ""
+        "let g:closetag_close_shortcut = '<leader>>'
+    ""  }
 " }
 " Functions {
 "
