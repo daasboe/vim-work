@@ -38,6 +38,7 @@
     Plug 'ternjs/tern_for_vim'
     "Plug 'mhinz/vim-signify'
     Plug 'altercation/vim-colors-solarized'
+    Plug 'joshdick/onedark.vim'
 
 
     " Initialize plugin system
