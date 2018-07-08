@@ -6,46 +6,66 @@
     set encoding=utf-8
     let $LANG = "en_US.UTF-8"
     set langmenu=en_US.UTF-8
-
-
     set nrformats-=octal
 
     set nocompatible               " be iMproved
     filetype off                   " required!
+
+    " Disable python3 warnings
+    if has('python3')
+      silent! python3 1
+    endif
 " }
 " Plugins {
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
     call plug#begin('~/.vim/plugged')
 
+    """ Functionality
     Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
     Plug 'scrooloose/nerdcommenter'
-    Plug 'scrooloose/syntastic'
-    Plug 'morhetz/gruvbox'
-    Plug 'kien/ctrlp.vim'
-    Plug 'flazz/vim-colorschemes'
-    Plug 'bling/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
+    Plug 'tpope/vim-surround'
+    Plug 'w0rp/ale'
+    Plug 'ervandew/supertab'
+    Plug 'mattn/emmet-vim'
+    " Git
     Plug 'tpope/vim-fugitive'
     Plug 'airblade/vim-gitgutter'
-    Plug 'moll/vim-node', {'for' : 'javascript'}
-    Plug 'pangloss/vim-javascript', {'for' : 'javascript'}
+    " Close parathesis etc
+    Plug 'raimondi/delimitmate'
+    " Close html tags
+    Plug 'alvan/vim-closetag'
+    " Fuzzy find
+    Plug '/usr/local/opt/fzf'
+    Plug 'junegunn/fzf.vim'
+
+    """ Languages
+    Plug 'moll/vim-node',
+    Plug 'pangloss/vim-javascript'
     Plug 'othree/javascript-libraries-syntax.vim'
-    Plug 'ervandew/supertab'
+    Plug 'mxw/vim-jsx'
+    Plug 'epilande/vim-es2015-snippets'
+    Plug 'epilande/vim-react-snippets'
+
+    """ Visual
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'flazz/vim-colorschemes'
+    Plug 'joshdick/onedark.vim'
+    Plug 'morhetz/gruvbox'
+    Plug 'altercation/vim-colors-solarized'
+
+    """ Autocomplete
+    " deoplete
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+
+    " Snippets
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
-    Plug 'Valloric/YouCompleteMe'
-    Plug 'tpope/vim-surround'
-    Plug 'raimondi/delimitmate'
-    Plug 'ternjs/tern_for_vim'
-    "Plug 'mhinz/vim-signify'
-    Plug 'altercation/vim-colors-solarized'
-    Plug 'tpope/vim-unimpaired'
-    Plug 'burnettk/vim-angular'
-    Plug 'matthewsimo/angular-vim-snippets'
-    Plug 'vim-scripts/SyntaxComplete'
-    Plug 'mattn/emmet-vim'
-    "Plug 'alvan/vim-closetag'
-    Plug 'joshdick/onedark.vim'
+    Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
+    Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
+    Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
 
     " Initialize plugin system
     call plug#end()
@@ -145,7 +165,9 @@
             set guifont=Consolas:h9:cANSI
         else
             "set guifont=-misc-fixed-medium-r-semicondensed-*-*-120-*-*-*-*-iso10646-*
-            set guifont=Inconsolata:h14
+            "set guifont=Inconsolata:h14
+            set macligatures
+            set guifont=Fira\ Code:h12
         endif
     else
         if &term == 'xterm' || &term == 'screen'
@@ -158,7 +180,7 @@
 
     set nowrap                      " Wrap long lines
     set autoindent                  " Indent at the same level of the previous line
-    set shiftwidth=2                " Use indents of 4 spaces
+    set shiftwidth=2                " Use indents of 2 spaces
     set expandtab                   " Tabs are spaces, not tabs
     set tabstop=2                   " An indentation every four columns
     set softtabstop=2               " Let backspace delete indent
@@ -167,7 +189,6 @@
     "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
     " Remove trailing whitespaces and ^M chars
     autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml,ocn autocmd BufWritePre <buffer> call StripTrailingWhitespace()
-    autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
 
 " }
 " Key (re)Mappings {
@@ -228,8 +249,8 @@
     cmap cd. lcd %:p:h
 
     " Visual shifting (does not exit Visual mode)
-    vnoremap <leader>< <gv
-    vnoremap <leader>> >gv
+    vnoremap < <gv
+    vnoremap > >gv
 
     " Fix home and end keybindings for screen, particularly on mac
     " - for some reason this fixes the arrow keys too. huh.
@@ -251,10 +272,6 @@
 
     " Adjust viewports to the same size
     map <Leader>= <C-w>=
-
-    " Map <Leader>ff to display all lines with keyword under cursor
-    " and ask which one to jump to
-    nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
     " Easier horizontal scrolling
     map zl zL
@@ -296,22 +313,22 @@
 
     " Tab remaps {
         " tab navigation like firefox
-        nnoremap <C-S-tab> :tabprevious<CR>
-        nnoremap <C-tab>   :tabnext<CR>
+        "nnoremap <C-S-tab> :tabprevious<CR>
+        "nnoremap <C-tab>   :tabnext<CR>
         nnoremap <C-t>     :tabnew<CR>
-        inoremap <C-S-tab> <Esc>:tabprevious<CR>i
-        inoremap <C-tab>   <Esc>:tabnext<CR>i
+        "inoremap <C-S-tab> <Esc>:tabprevious<CR>i
+        "inoremap <C-tab>   <Esc>:tabnext<CR>i
         inoremap <C-t>     <Esc>:tabnew<CR>
 
-        nnoremap th  :tabfirst<CR>
-        nnoremap tj  :tabnext<CR>
-        nnoremap tk  :tabprev<CR>
-        nnoremap tl  :tablast<CR>
-        nnoremap tt  :tabedit<Space>
-        nnoremap tn  :tabnext<Space>
-        nnoremap tm  :tabm<Space>
-        nnoremap td  :tabclose<CR>
-        nnoremap <silent> <C-b> :CtrlPMRU<CR>
+        "nnoremap th  :tabfirst<CR>
+        "nnoremap tj  :tabnext<CR>
+        "nnoremap tk  :tabprev<CR>
+        "nnoremap tl  :tablast<CR>
+        "nnoremap tt  :tabedit<Space>
+        "nnoremap tn  :tabnext<Space>
+        "nnoremap tm  :tabm<Space>
+        "nnoremap td  :tabclose<CR>
+        "nnoremap <silent> <C-b> :CtrlPMRU<CR>
         "
     " }
 
@@ -319,27 +336,25 @@
     nmap <leader>l :set list!<CR>
 
     " Quick vimrc editing
-    nnoremap <leader>em :vsplit $MYVIMRC<cr>
+    nnoremap <leader>em :e $MYVIMRC<cr>
     nnoremap <leader>sm :so $MYVIMRC<cr>
 
     " Easier help navigation on norwegian keyboard layout
     nnoremap <leader>hg <C-]>
     nnoremap <leader>hb <C-T>
 
-    " unimpared mappings
-    "nmap < [
-    "nmap > ]
-    "omap < [
-    "omap > ]
-    "xmap < [
-    "xmap > ]
+    " Nerdtree
+    map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+    map <leader>e :NERDTreeFind<CR>
+    nmap <leader>nt :NERDTreeFind<CR>
+
+    " FZF
+    nnoremap <leader>f :Files<cr>
+    nnoremap <leader>b :Buffers<cr>
+
  "}
 " Plugin configurations {
     " NerdTree {
-        map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
-        map <leader>e :NERDTreeFind<CR>
-        nmap <leader>nt :NERDTreeFind<CR>
-
         let NERDTreeShowBookmarks=1
         let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
         let NERDTreeChDirMode=0
@@ -350,13 +365,12 @@
         let g:nerdtree_tabs_open_on_gui_startup=0
     " }
     " Airline{
-        let g:airline_theme='wombat'
-        "
-        "if !exists('g:airline_symbols')
-          "let g:airline_symbols = {}
-        "endif
+        let g:airline_theme='gruvbox'
 
-          let g:airline_symbols = {}
+        if !exists('g:airline_symbols')
+            let g:airline_symbols = {}
+        endif
+
         " unicode symbols
         let g:airline_left_sep = '»'
         let g:airline_left_sep = ''
@@ -370,72 +384,85 @@
         let g:airline_symbols.paste = 'Þ'
         let g:airline_symbols.paste = '∥'
         let g:airline_symbols.whitespace = 'Ξ'
+        let g:airline_exclude_filetypes = ['nerdtree']
     "}
-    "  Ultisnips, YouCompleteMe and SuperTab {
-        " YouCompleteMe and UltiSnips compatibility, with the helper of supertab
-        let g:ycm_key_list_select_completion   = ['<C-j>', '<C-n>', '<Down>']
-        let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
-
-        let g:SuperTabDefaultCompletionType    = '<C-n>'
-        let g:SuperTabCrMapping                = 0
-
-        let g:UltiSnipsExpandTrigger="<C-space>"
-        let g:UltiSnipsJumpForwardTrigger="<tab>"
-        let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-        let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips' , '~/.vim/plugged/angular-vim-snippets/UltiSnips']
-    " }
-    " Syntastic {
-        set statusline+=%#warningmsg#
-        set statusline+=%{SyntasticStatuslineFlag()}
-        set statusline+=%*
-
-        let g:syntastic_always_populate_loc_list = 1
-        let g:syntastic_auto_loc_list = 1
-        let g:syntastic_check_on_open = 1
-        let g:syntastic_check_on_wq = 0
-
-        let g:syntastic_javascript_checkers = ['eslint']
-        "let g:syntastic_javascript_jsxhint_exec = 'jsx-jshint-wrapper'
-
-    " }
-    " SyntaxComplete {
-        if has("autocmd") && exists("+omnifunc")
-            autocmd Filetype *
-                        \	if &omnifunc == "" |
-                        \		setlocal omnifunc=syntaxcomplete#Complete |
-                        \	endif
-        endif
-    " }
     " javascript-libraries-syntax {
-        let g:used_javascript_libs = 'angularjs'
+        let g:used_javascript_libs = 'react'
     " }
     " Emmet {
         let g:user_emmet_install_global = 0
-        autocmd FileType html,css EmmetInstall
+        autocmd FileType html,css,javascript,javascript.jsx EmmetInstall
+        let g:user_emmet_settings = {
+                    \  'javascript.jsx' : {
+                    \      'extends' : 'jsx',
+                    \  },
+                    \}
     "  }
-    ""  Closetags {
-        "" filenames like *.xml, *.html, *.xhtml, ...  " Then after you press <kbd>&gt;</kbd> in these files, this plugin will try to close the current tag.
-        ""
-        "let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
+    " vim-jsx {
+        let g:jsx_ext_required = 0
+    " }
+    "  Ale {
+        let g:ale_lint_on_save = 1
+        let g:ale_lint_on_text_changed = 'never'
+        " disable the Ale HTML linters
+        let g:ale_linters = {
+        \   'html': [],
+        \   'javascript': ['eslint'],
+        \   'javascript.jsx': ['eslint'],
+        \}
+        let g:ale_set_highlights = 0
 
-        "" filenames like *.xml, *.xhtml, ...
-        "" This will make the list of non closing tags self closing in the specified files.
-        ""
-        "let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+        "" stop Elm.vim trying to show compiler erorrs in Vim
+        "let g:elm_format_fail_silently = 1
 
-        "" integer value [0|1]
-        "" This will make the list of non closing tags case sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
-        ""
-        "let g:closetag_emptyTags_caseSensitive = 1
+        "" set Prettier up to run on save
+        "let g:ale_fixers = {}
+        "let g:ale_fixers['javascript'] = [
+        "\  'prettier-eslint'
+        "\]
+        "let g:ale_fix_on_save = 1
+        "let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5 --no-semi'
 
-        "" Shortcut for closing tags, default is '>'
-        ""
-        "let g:closetag_shortcut = '>'
+        let g:ale_sign_error = '●' " Less aggressive than the default '>>'
+        let g:ale_sign_warning = '.'
+        let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
+    "  }
+    "  Deoplete {
+        let g:deoplete#enable_at_startup = 1
+        let g:deoplete#enable_ignore_case = 1
+        let g:deoplete#enable_smart_case = 1
+        let g:deoplete#enable_camel_case = 1
+        let g:deoplete#enable_refresh_always = 1
+        let g:deoplete#max_abbr_width = 0
+        let g:deoplete#max_menu_width = 0
+        let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
 
-        "" Add > at current position without closing the current tag, default is ''
-        ""
-        "let g:closetag_close_shortcut = '<leader>>'
-    ""  }
+        let g:tern_request_timeout = 1
+        let g:tern_request_timeout = 6000
+        let g:tern#command = ["tern"]
+        let g:tern#arguments = ["--persistent"]
+
+        let g:deoplete#omni#functions = {}
+        let g:deoplete#omni#functions.javascript = [
+          \ 'tern#Complete',
+          \ 'jspc#omni'
+        \]
+
+        set completeopt=longest,menuone
+        let g:deoplete#sources = {}
+        let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs']
+        let g:tern#command = ['tern']
+        let g:tern#arguments = ['--persistent']
+
+        autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+        let g:UltiSnipsExpandTrigger="<C-j>"
+        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+        " For conceal markers.
+        if has('conceal')
+          set conceallevel=2 concealcursor=niv
+        endif
+    "  }
 " }
 " Functions {
 "
