@@ -53,6 +53,8 @@
     Plug 'joshdick/onedark.vim'
     Plug 'morhetz/gruvbox'
     Plug 'altercation/vim-colors-solarized'
+    "Plug 'luochen1990/rainbow'
+    Plug 'bounceme/poppy.vim'
 
     """ Autocomplete
     " deoplete
@@ -164,10 +166,8 @@
         elseif has("win32")
             set guifont=Consolas:h9:cANSI
         else
-            "set guifont=-misc-fixed-medium-r-semicondensed-*-*-120-*-*-*-*-iso10646-*
-            "set guifont=Inconsolata:h14
             set macligatures
-            set guifont=Fira\ Code:h12
+            set guifont=FuraCode\ Nerd\ Font:h12
         endif
     else
         if &term == 'xterm' || &term == 'screen'
@@ -188,7 +188,7 @@
     set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
     "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
     " Remove trailing whitespaces and ^M chars
-    autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml,ocn autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+    autocmd FileType c,cpp,java,php,javascript,javascript.jsx,python,twig,xml,yml,ocn autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 
 " }
 " Key (re)Mappings {
@@ -366,26 +366,31 @@
     " }
     " Airline{
         let g:airline_theme='gruvbox'
+        let g:airline_powerline_fonts = 1
 
         if !exists('g:airline_symbols')
             let g:airline_symbols = {}
         endif
-
         " unicode symbols
-        let g:airline_left_sep = '»'
-        let g:airline_left_sep = ''
-        let g:airline_right_sep = '«'
-        let g:airline_right_sep = ''
-        let g:airline_symbols.linenr = '␊'
-        let g:airline_symbols.linenr = '␤'
-        let g:airline_symbols.linenr = '¶'
-        let g:airline_symbols.branch = '⎇ '
-        let g:airline_symbols.paste = 'ρ'
-        let g:airline_symbols.paste = 'Þ'
-        let g:airline_symbols.paste = '∥'
-        let g:airline_symbols.whitespace = 'Ξ'
+        "let g:airline_left_sep = '»'
+        "let g:airline_left_sep = ''
+        "let g:airline_right_sep = '«'
+        "let g:airline_right_sep = ''
+        "let g:airline_symbols.linenr = '␊'
+        "let g:airline_symbols.linenr = '␤'
+        "let g:airline_symbols.linenr = '¶'
+        "let g:airline_symbols.branch = '⎇ '
+        "let g:airline_symbols.paste = 'ρ'
+        "let g:airline_symbols.paste = 'Þ'
+        "let g:airline_symbols.paste = '∥'
+        "let g:airline_symbols.whitespace = 'Ξ'
         let g:airline_exclude_filetypes = ['nerdtree']
+
     "}
+    " Rainbow {
+        "let g:rainbow_active = 1
+        au! cursormoved * call PoppyInit()
+    " }
     " javascript-libraries-syntax {
         let g:used_javascript_libs = 'react'
     " }
@@ -528,3 +533,4 @@
     endfunction
     " }
 " }
+"
